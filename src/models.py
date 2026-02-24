@@ -34,7 +34,12 @@ class People(db.Model):
     gender: Mapped[str] = mapped_column(String(20))
 
     def serialize(self):
-        return {"id": self.id, "name": self.name}
+        return {
+            "id": self.id,
+            "name": self.name,
+            "birth_year": self.birth_year,
+            "gender": self.gender
+        }
 
 
 class Planet(db.Model):
@@ -44,7 +49,11 @@ class Planet(db.Model):
     population: Mapped[str] = mapped_column(String(20))
 
     def serialize(self):
-        return {"id": self.id, "name": self.name}
+        return {
+            "id": self.id,
+            "name": self.name,
+            "population": self.population
+            }
 
 
 class Favorite(db.Model):
@@ -56,7 +65,6 @@ class Favorite(db.Model):
         ForeignKey('people.id'), nullable=True)
     planet_id: Mapped[int] = mapped_column(
         ForeignKey('planet.id'), nullable=True)
-
     # Relaciones (Objetos Python)
     user: Mapped["User"] = relationship(back_populates="favorites")
 
